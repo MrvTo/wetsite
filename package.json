@@ -32,6 +32,6 @@
   "author": "W.E.T Team",
   "license": "MIT",
   "engines": {
-    "node": ">=20.19.4 <21"
+    "node": "20.16.0"
   }
 }
