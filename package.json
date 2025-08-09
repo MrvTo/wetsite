@@ -23,7 +23,15 @@
     "nodemon": "^3.0.1",
     "jest": "^29.6.2"
   },
-  "keywords": ["eye-tracking", "webcam", "authentication", "api"],
+  "keywords": [
+    "eye-tracking",
+    "webcam",
+    "authentication",
+    "api"
+  ],
   "author": "W.E.T Team",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": "20.x"
+  }
 }
