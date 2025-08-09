@@ -1,0 +1,11 @@
+{
+  "name": "wet-netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for W.E.T Webcam Eye Tracking",
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^11.11.0",
+    "nodemailer": "^6.9.4",
+    "validator": "^13.11.0"
+  }
+}
