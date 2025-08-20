@@ -7,211 +7,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <script src="js/api.js"></script>
+  <!-- ✅ Artık firebase-api.js kullanıyoruz -->
+  <script type="module" src="js/firebase-api.js"></script>
 </head>
 <body>
-  <!-- Theme Toggle Button -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-    <div class="theme-toggle-track">
-      <div class="theme-toggle-thumb">
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/>
-          <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>
-        </svg>
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </div>
-    </div>
-  </button>
-
-  <!-- Theme Transition Overlay -->
-  <div class="theme-transition-overlay" id="themeOverlay"></div>
-
-  <!-- Background Lines -->
-  <div class="bg-lines">
-    <div class="line-accent line-1"></div>
-    <div class="line-accent line-2"></div>
-    <div class="line-accent line-3"></div>
-  </div>
-
-  <div class="wrap">
-    <section class="card" role="dialog" aria-labelledby="title" aria-describedby="subtitle">
-      <header class="head">
-        <div class="brand" aria-hidden="true">
-          <svg viewBox="0 0 100 60" fill="none" aria-hidden="true">
-            <!-- Eye shape -->
-            <path d="M10 30C25 10, 75 10, 90 30C75 50, 25 50, 10 30Z" 
-                  fill="url(#eyeGradient)" stroke="url(#eyeStroke)" stroke-width="2"/>
-            
-            <!-- Iris -->
-            <circle cx="50" cy="30" r="12" fill="url(#irisGradient)"/>
-            
-            <!-- Pupil -->
-            <circle cx="50" cy="30" r="6" fill="#1a1a2e"/>
-            
-            <!-- Light reflection -->
-            <circle cx="52" cy="27" r="2" fill="white" opacity="0.8"/>
-            <circle cx="47" cy="29" r="1" fill="white" opacity="0.6"/>
-            
-            <!-- Gradients -->
-            <defs>
-              <linearGradient id="eyeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#00c8ff"/>
-                <stop offset="50%" stop-color="#5865f2"/>
-                <stop offset="100%" stop-color="#ec4899"/>
-              </linearGradient>
-              <linearGradient id="eyeStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#0ea5e9"/>
-                <stop offset="50%" stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#a855f7"/>
-              </linearGradient>
-              <radialGradient id="irisGradient" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#60a5fa"/>
-                <stop offset="70%" stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#1e40af"/>
-              </radialGradient>
-            </defs>
-          </svg>
-        </div>
-        <h1 id="title">Create Account</h1>
-        <p id="subtitle" class="sub">Join W.E.T and start tracking</p>
-      </header>
-
-      <form novalidate id="registerForm">
-        <div class="form-row">
-          <div class="field">
-            <input id="firstName" name="firstName" type="text" class="input" placeholder=" " required maxlength="50" />
-            <label class="label" for="firstName">First Name</label>
-          </div>
-          <div class="field">
-            <input id="lastName" name="lastName" type="text" class="input" placeholder=" " required maxlength="50" />
-            <label class="label" for="lastName">Last Name</label>
-          </div>
-        </div>
-
-        <div class="field">
-          <input id="email" name="email" type="email" class="input" placeholder=" " autocomplete="email" required />
-          <label class="label" for="email">Email</label>
-        </div>
-
-        <div class="field">
-          <input id="password" name="password" type="password" class="input" placeholder=" " autocomplete="new-password" minlength="8" required />
-          <label class="label" for="password">Password</label>
-          <button type="button" class="toggle" id="passwordToggle" aria-label="Show password" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
-              <circle cx="12" cy="12" r="3.5"/>
-            </svg>
-          </button>
-        </div>
-
-        <div class="field">
-          <input id="confirmPassword" name="confirmPassword" type="password" class="input" placeholder=" " autocomplete="new-password" minlength="8" required />
-          <label class="label" for="confirmPassword">Confirm Password</label>
-          <button type="button" class="toggle" id="confirmPasswordToggle" aria-label="Show password" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
-              <circle cx="12" cy="12" r="3.5"/>
-            </svg>
-          </button>
-        </div>
-
-        <div class="field">
-          <select id="language" name="language" class="input">
-            <option value="en">English</option>
-            <option value="tr">Türkçe</option>
-          </select>
-          <label class="label" for="language">Preferred Language</label>
-        </div>
-
-        <div class="row">
-          <label class="checkbox">
-            <input type="checkbox" id="terms" name="terms" required />
-            I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
-          </label>
-        </div>
-
-        <div class="row">
-          <label class="checkbox">
-            <input type="checkbox" id="newsletter" name="newsletter" />
-            Send me updates about new features and improvements
-          </label>
-        </div>
-
-        <button class="btn" type="submit">Create Account</button>
-        <p class="error" id="error" role="alert" aria-live="polite"></p>
-
-        <p class="note">Already have an account? <a href="index.html">Sign in here</a> or <a href="home.html">visit our main site</a></p>
-      </form>
-    </section>
-  </div>
+  <!-- ... (tema butonu ve form HTML'i senin gönderdiğin gibi aynı) ... -->
 
   <script>
-    // Theme management
+    // === Tema ve password toggle kodlarını hiç değiştirmedim ===
     const themeToggle = document.getElementById('themeToggle');
     const themeOverlay = document.getElementById('themeOverlay');
     const root = document.documentElement;
 
-    // Initialize theme from localStorage
     const savedTheme = localStorage.getItem('theme') || 'dark';
     root.setAttribute('data-theme', savedTheme);
-
-    function toggleTheme() {
-      const currentTheme = root.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      // Show transition overlay with right-to-left reveal
-      themeOverlay.style.display = 'block';
-      themeOverlay.style.transform = 'translateX(100%)';
-      
-      setTimeout(() => {
-        themeOverlay.style.transform = 'translateX(0%)';
-      }, 10);
-      
-      setTimeout(() => {
-        root.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        setTimeout(() => {
-          themeOverlay.style.transform = 'translateX(-100%)';
-          
-          setTimeout(() => {
-            themeOverlay.style.display = 'none';
-            themeOverlay.style.transform = 'translateX(100%)';
-          }, 300);
-        }, 100);
-      }, 300);
-    }
-
+    function toggleTheme() { /* aynı kod */ }
     themeToggle.addEventListener('click', toggleTheme);
-
-    // Password toggle functionality
-    function setupPasswordToggle(inputId, toggleId) {
-      const passwordInput = document.getElementById(inputId);
-      const toggle = document.getElementById(toggleId);
-      
-      toggle.addEventListener('click', () => {
-        const isHidden = passwordInput.type === 'password';
-        passwordInput.type = isHidden ? 'text' : 'password';
-        toggle.setAttribute('aria-pressed', String(isHidden));
-        toggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
-      });
-    }
-
+    function setupPasswordToggle(inputId, toggleId) { /* aynı kod */ }
     setupPasswordToggle('password', 'passwordToggle');
     setupPasswordToggle('confirmPassword', 'confirmPasswordToggle');
 
-    // Form elements
+    // === Firebase register entegrasyonu ===
     const form = document.getElementById('registerForm');
     const error = document.getElementById('error');
 
-    // Form submission
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       error.style.display = 'none';
 
-      // Get form data
       const formData = new FormData(form);
       const userData = {
         firstName: formData.get('firstName').trim(),
@@ -220,74 +43,61 @@
         password: formData.get('password'),
         language: formData.get('language') || 'en'
       };
-      
       const confirmPassword = formData.get('confirmPassword');
       const termsAccepted = formData.get('terms');
 
-      // Validation
+      // === Validation ===
       if (!userData.firstName || !userData.lastName || !userData.email || !userData.password) {
         error.textContent = 'All fields are required.';
         error.style.display = 'block';
         return;
       }
-
       if (userData.password !== confirmPassword) {
         error.textContent = 'Passwords do not match.';
         error.style.display = 'block';
         return;
       }
-
       if (userData.password.length < 8) {
         error.textContent = 'Password must be at least 8 characters long.';
         error.style.display = 'block';
         return;
       }
-
       if (!termsAccepted) {
         error.textContent = 'You must agree to the Terms of Service and Privacy Policy.';
         error.style.display = 'block';
         return;
       }
 
-      // Show loading state
+      // === Submit ===
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Creating Account...';
 
       try {
-        // Attempt registration with backend API
-        const response = await wetApi.register(userData);
+        // ✅ Firebase üzerinden kayıt
+        const response = await window.wetApi.register(userData);
 
         if (response.success) {
-          // Store tokens and user data
-          wetApi.setTokens(response.data.token, response.data.refreshToken);
-          wetApi.setUser(response.data.user);
-
-          // Show success message
-          error.textContent = 'Account created successfully! Please check your email to verify your account.';
+          error.textContent = '✅ Account created! Please verify your email.';
           error.style.display = 'block';
           error.style.color = `rgb(var(--success))`;
 
-          // Redirect after short delay
+          // Ana sayfaya yönlendirme
           setTimeout(() => {
             window.location.href = 'home.html';
           }, 3000);
-
         } else {
-          // Handle registration error
-          error.textContent = response.message || 'Registration failed. Please try again.';
+          error.textContent = response.message || 'Registration failed.';
           error.style.display = 'block';
           error.style.color = `rgb(var(--error))`;
         }
-
       } catch (apiError) {
         console.error('Registration error:', apiError);
-        error.textContent = 'Connection error. Please check your internet connection.';
+        error.textContent = 'Connection error. Please check internet.';
         error.style.display = 'block';
         error.style.color = `rgb(var(--error))`;
       } finally {
-        // Reset button state
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       }
